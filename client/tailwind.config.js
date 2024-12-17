@@ -14,6 +14,9 @@ module.exports = {
         light_background: "#1f1f1f",
         primary_purple: "#9b78ee",
       },
+      fontFamily:{
+        sans: ['Roboto', 'ui-sans-serif', 'system-ui']
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

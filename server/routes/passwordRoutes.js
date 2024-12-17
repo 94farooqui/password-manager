@@ -1,7 +1,7 @@
 import express from "express";
 import Password from "../models/Password.js";
-import { encrypt, decrypt } from "../utils/encryption.js";
-import authenticate from "../middleware/authenticate.js";
+import { encrypt, decrypt } from "../utils/securePassword.js";
+import authenticate from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
