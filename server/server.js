@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import authRoutes from './routes/authRoutes.js'
 import passwordRoutes from './routes/passwordRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ connectDB()
 app.get("/", (req, res) => res.send("Password Manager API"));
 
 app.use("/api/auth" , authRoutes)
+app.use("/api/user", userRoutes);
 app.use("/api/creds", passwordRoutes)
 app.use("/api/categories", categoryRoutes)
 

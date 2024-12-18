@@ -6,14 +6,29 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading,setLoading] = useState(false)
 
   const login = async (email, password) => {
-    const { data } = await axios.post("/api/auth/login", { email, password });
-    localStorage.setItem("token", data.token);
+    try{
+      setLoading(true)
+    const { data } = await axios.post("http://localhost:5000/api/auth/login", {
+      email,
+      password,
+    });
+    if(data){
+      setLoading(false)
+      console.log("Token", data.token);
+      localStorage.setItem("token", data.token);
+    }
+    
 
     // Decode token to get user data
     const decodedUser = jwtDecode(data.token);
     setUser(decodedUser);
+    }catch(error){
+      console.log(error)
+    }
+
   };
 
   const logout = () => {
@@ -36,7 +51,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout,loading,setLoading }}>
       {children}
     </AuthContext.Provider>
   );

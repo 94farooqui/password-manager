@@ -1,10 +1,19 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/authContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login, user, loading, setLoading } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user){
+      navigate("/")
+    }
+  },[user])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,17 +30,28 @@ const LoginPage = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-transparent border border-primary_purple rounded-lg p-2 text-white"
+            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-transparent border border-primary_purple rounded-lg p-2 text-white"
+            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600"
           />
-          <button type="submit" className="bg-primary_purple py-2 rounded-lg text-purple-50">Login</button>
+          <button
+            type="submit"
+            className="bg-primary_purple py-2 rounded-lg text-purple-50"
+          >
+            {loading ? "Loading..." : "Login"}
+          </button>
         </form>
+        <p className="text-sm text-zinc-400 mt-4">
+          Don't have an account?{" "}
+          <span className="text-purple-700 hover:text-purple-400">
+            <Link to="/register">Register</Link>
+          </span>
+        </p>
       </div>
     </div>
   );
