@@ -1,9 +1,24 @@
+import axios from 'axios'
+
+const token = localStorage.getItem("token")
+
 export const fetchPasswords = async () => {
-    const { data } = await axios.get("/api/passwords");
+    const { data } = await axios.get("http://localhost:5000/api/creds", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data
 };
 
-export const addPassword = async (passwordData) => {
-    const { data } = await axios.post("/api/passwords", passwordData);
-    return data
+export const addNewCreds = async (credsData) => {
+    const response = await axios.post("http://localhost:5000/api/creds", credsData,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    });
+    if(response.status == 201){
+        return true
+    }
+    else return false
 };

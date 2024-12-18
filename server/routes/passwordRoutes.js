@@ -12,12 +12,10 @@ router.post("/", authenticate, async (req, res) => {
     const encryptedPassword = encrypt(password);
     const newPassword = await Password.create({
       userId: req.user.id,
-      title,
-      username,
       encryptedPassword,
-      url,
+      ...req.body
     });
-    res.status(201).json(newPassword);
+    res.status(201).send("Creds added");
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

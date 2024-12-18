@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaAsterisk } from "react-icons/fa";
 import { addCategory } from "../services/api.categories";
+import { useNavigate } from "react-router-dom";
 
 const categoryData = {
   name: "",
@@ -10,10 +11,14 @@ const categoryData = {
 
 const NewCategory = () => {
     const [newCategory,setNewCategory] = useState(categoryData)
+    const navigate = useNavigate()
   const handleAddCategory = (e) => {
     e.preventDefault()
     //console.log(newCategory)
-    addCategory(newCategory)
+    const response = addCategory(newCategory)
+    if(response){
+      navigate(-1)
+    }
   };
   return (
     <div>
