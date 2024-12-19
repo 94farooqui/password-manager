@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import NewCreds from "./pages/NewCreds";
 import Categories from "./pages/Categories";
 import NewCategory from "./pages/NewCategory";
+import EditCreds from "./pages/EditCreds";
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
         <Route element={<RootLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/add-creds" element={<NewCreds />} />
+          <Route path="/edit-creds/:credId" element={<EditCreds />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/new-category" element={<NewCategory />} />
 

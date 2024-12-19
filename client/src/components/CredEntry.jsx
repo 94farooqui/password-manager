@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const CredEntry = ({ entry }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -17,11 +18,6 @@ const CredEntry = ({ entry }) => {
     return ()=>window.removeEventListener("mousedown", handleOutsideClick)
   },[])
 
-  const handleRightClick = (e) => {
-    setMenuPosition({ x: e.pageX, y: e.pageY });
-    setShowMenu(true);
-    e.preventDefault();
-  };
   return (
     <div className="relative bg-zinc-800 p-4 rounded-md">
       <h4 className="text-xl font-semibold">{entry.title}</h4>
@@ -46,7 +42,7 @@ const CredEntry = ({ entry }) => {
         >
           <ul className="flex flex-col  text-sm text-zinc-400">
             <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
-              Edit
+              <Link to={`edit-creds/${entry._id}`} state={{creds:entry}}> Edit</Link>
             </li>
 
             <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">

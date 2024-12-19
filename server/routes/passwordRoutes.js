@@ -61,4 +61,19 @@ router.delete("/:id", authenticate, async (req, res) => {
   }
 });
 
+// Update a password
+router.put("/:id", authenticate, async (req, res) => {
+  try {
+    const updatedPassword = await Password.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    if (!updatedPassword || updatedPassword.userId.toString() !== req.user.id) {
+      return res.status(404).json({ error: "Password not found" });
+    }
+
+    
+    return res.status(201).json({ message: "Password updated successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;
