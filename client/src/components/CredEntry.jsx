@@ -48,17 +48,18 @@ const CredEntry = ({ entry }) => {
             <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
               Edit
             </li>
-            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
-              Delete
-            </li>
+
             <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
               Copy Username
             </li>
             <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
               Copy Password
             </li>
-            <li className="py-2 px-4 hover:bg-zinc-600 cursor-pointer ">
+            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer ">
               Copy URL
+            </li>
+            <li className="py-2 px-4  hover:bg-zinc-600 cursor-pointer">
+              Delete
             </li>
           </ul>
         </div>
