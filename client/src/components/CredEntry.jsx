@@ -4,7 +4,23 @@ import { Link } from "react-router-dom";
 
 const CredEntry = ({ entry }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const [showModal,setShowModal] = useState(false)
   const menuRef = useRef()
+  const [copyTarget,setCopyTarget] = useState()
+
+  const handleCopy = async (target) => {
+    try {
+      if(target === "username") await navigator.clipboard.writeText(entry.username);
+      if(target === "password") await navigator.clipboard.writeText(entry.password);
+      if(target === "url") await navigator.clipboard.writeText(entry.url);
+
+      console.log("text copied")
+      setShowMenu(false)
+      setTimeout(() => setIsCopied(false), 10000); // Reset after 5 seconds
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
 
   const handleOutsideClick = (e) => {
     if(menuRef.current && !menuRef.current.contains(e.target)){
@@ -45,21 +61,30 @@ const CredEntry = ({ entry }) => {
               <Link to={`edit-creds/${entry._id}`} state={{creds:entry}}> Edit</Link>
             </li>
 
-            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
+            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer" onClick={()=>handleCopy("username")}>
               Copy Username
             </li>
-            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer">
+            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer" onClick={()=>handleCopy("password")}>
               Copy Password
             </li>
-            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer ">
+            <li className="py-2 px-4 border-b border-zinc-500 hover:bg-zinc-600 cursor-pointer " onClick={()=>handleCopy("url")}>
               Copy URL
             </li>
-            <li className="py-2 px-4  hover:bg-zinc-600 cursor-pointer">
+            <li className="py-2 px-4  hover:bg-zinc-600 cursor-pointer" onClick={()=>setShowModal(true)}>
               Delete
             </li>
           </ul>
         </div>
       )}
+      {showModal && <div className="w-screen h-screen z-40 absolute top-0 left-0 flex justify-center items-center bg-zinc-900 bg-opacity-30">
+        <div className="w-[300px] p-8 rounded-md flex flex-col gap-4 bg-zinc-600">
+          <p>Are you sure want to delete</p>
+          <div>
+            <button onClick={()=>setShowModal(false)}>Cancel</button>
+            <button>Yes</button>
+          </div>
+        </div>
+      </div>}
     </div>
   );
 };
