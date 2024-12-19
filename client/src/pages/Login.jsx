@@ -36,14 +36,14 @@ const LoginPage = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600"
+            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600 focus:outline-none"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600"
+            className="bg-dark_background rounded-lg p-2  text-zinc-400 placeholder-zinc-600 focus:outline-none"
           />
           <button
             type="submit"

@@ -27,7 +27,10 @@ const Home = () => {
                 setData(data)
             }
         }
-        fetchData()
+        if(user){
+
+            fetchData()
+        }
     },[])
 
     if(loading){
