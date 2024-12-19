@@ -3,7 +3,8 @@ import { AuthContext } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { login, user, loading, setLoading } = useContext(AuthContext);
+  const { login, user, loading, setLoading, authError } = useContext(AuthContext);
+  const [error,setError] = useState("")
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +19,11 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
+    if(authError){
+      console.log("Auth Error", authError)
+      setLoading(false)
+      setError(authError)
+    }
   };
 
   return (
@@ -46,6 +52,7 @@ const LoginPage = () => {
             {loading ? "Loading..." : "Login"}
           </button>
         </form>
+        {authError && <p className="text-red-500 mt-4">{authError}</p>}
         <p className="text-sm text-zinc-400 mt-4">
           Don't have an account?{" "}
           <span className="text-purple-700 hover:text-purple-400">

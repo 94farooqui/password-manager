@@ -24,12 +24,15 @@ export const registerUser = async (userData) => {
         password,
       });
 
+      if (err.status === 404 || err.status === 401 || err.status === 500) {
+        return {error}
+      }
+
       if (res.data.token) {
         login(res.data.token);
       }
     } catch (err) {
-      if (err.status === 404 || err.status === 401 || err.status === 500) {
-      }
+
       console.error("Error", err.status);
     }
   };

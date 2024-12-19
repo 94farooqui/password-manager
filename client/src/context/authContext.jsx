@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading,setLoading] = useState(false)
+  const [authError,setAuthError] = useState("")
 
   const login = async (email, password) => {
     try{
@@ -26,7 +27,9 @@ const AuthProvider = ({ children }) => {
     const decodedUser = jwtDecode(data.token);
     setUser(decodedUser);
     }catch(error){
-      console.log(error)
+      setLoading(false)
+      setAuthError(error.response.data.error)
+      console.log(error.response.data.error)
     }
 
   };
@@ -51,7 +54,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout,loading,setLoading }}>
+    <AuthContext.Provider value={{ user, login, logout,loading,setLoading, authError }}>
       {children}
     </AuthContext.Provider>
   );
