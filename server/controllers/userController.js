@@ -45,3 +45,17 @@ export const setupMaster = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const getMaster = async (req,res) => {
+  try{
+    const user = await User.findById(req.user.id)
+
+    if(user.master.password == process.env.ENCRYPTION_KEY){
+      return res.status(201).json(user.master.password)
+    }
+    return res.status(200).json(user.master.password);
+  }
+  catch(error){
+    return res.status(500).send("Something went wrong on server")
+  }
+}

@@ -13,6 +13,7 @@ const Register = () => {
     const [newUser,setNewUser] = useState(formData)
     const [reTypedPassword,setReTypedPassword] = useState("")
     const [error,setError] = useState("")
+    const [loading,setLoading] = useState(false)
     const navigate = useNavigate()
 
     const handlePasswordMatch = (e) => {
@@ -27,13 +28,10 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
             const response = await registerUser(newUser);
             if(response === true){
-                login(newUser.email, newUser.password)
-                if(user){
-                  navigate("/setup-master")
-                }
-               
+               navigate("/login")
             }
     }
   return (
@@ -79,7 +77,7 @@ const Register = () => {
             type="submit"
             className="bg-primary_purple py-2 rounded-lg text-purple-50"
           >
-            Register
+            {loading ? "Loading..." :"Register"}
           </button>
         </form>
         {error && <p className="text-sm text-red-500 mt-4">* {error}</p>}

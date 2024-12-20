@@ -3,6 +3,7 @@ import { setupMaster } from '../services/api.paswords'
 import { useNavigate } from 'react-router-dom'
 
 const SetupMaster = () => {
+  const 
     const [password,setPassword] = useState("")
     const [error,setError] = useState()
     const navigate = useNavigate()

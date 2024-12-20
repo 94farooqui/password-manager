@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading,setLoading] = useState(false)
+  const [masterNeeded,setMasterNeeded] = useState(true)
   const [authError,setAuthError] = useState("")
 
   const login = async (email, password) => {
@@ -20,6 +21,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false)
       console.log("Token", data.token);
       localStorage.setItem("token", data.token);
+      return {token: data.token} //need to be deleted if something goes wrong
     }
     
 
@@ -41,6 +43,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    localStorage.setItem("masterNeeded", masterNeeded)
     if (token) {
       try {
         // Decode token to get user data
@@ -54,7 +57,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout,loading,setLoading, authError }}>
+    <AuthContext.Provider value={{ user, login, logout,loading,setLoading, authError, masterNeeded,setMasterNeeded }}>
       {children}
     </AuthContext.Provider>
   );
