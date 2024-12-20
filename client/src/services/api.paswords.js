@@ -35,3 +35,25 @@ export const updateCreds = async (updateCreds) => {
     }
     else return false
 };
+
+export const setupMaster = async (master) => {
+    console.log(master)
+    try{
+        const response = await axios.post(
+          `http://localhost:5000/api/user/master`,{password: master},{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if(response.status==201){
+            return true
+        }
+        return false
+    }
+    catch(error){
+            console.log(error)
+            return false
+    }
+}

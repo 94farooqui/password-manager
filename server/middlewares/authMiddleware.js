@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
+  //console.log("In Middleware",req.body)
   if (!token) return res.status(403).json({ error: "Access denied" });
 
   try {

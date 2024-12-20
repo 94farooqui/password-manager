@@ -31,7 +31,7 @@ const Register = () => {
             if(response === true){
                 login(newUser.email, newUser.password)
                 if(user){
- navigate("/");
+                  navigate("/setup-master")
                 }
                
             }
